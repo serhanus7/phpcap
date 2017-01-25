@@ -1,33 +1,36 @@
-# config valid only for current version of Capistrano
-lock "3.7.1"
+# !! When editing the file (or defining the configurations),
+#    you can either comment them out or add the new lines.
+#    Make sure to **not** to have some example settings
+#    overriding the ones you are appending.
 
-set :application, "my_app_name"
-set :repo_url, "git@example.com:me/my_repo.git"
+# Define the name of the application
+set :application, 'phpcap'
 
-# Default branch is :master
-# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+# Define where can Capistrano access the source repository
+# set :repo_url, 'https://github.com/[user name]/[application name].git'
+set :scm, :git
+set :repo_url, 'https://github.com/serhanus7/phpcap.git'
 
-# Default deploy_to directory is /var/www/my_app_name
-# set :deploy_to, "/var/www/my_app_name"
+# Define where to put your application code
+set :deploy_to, "/local/www/#{fetch(:application)}"
 
-# Default value for :format is :airbrussh.
-# set :format, :airbrussh
+set :pty, true
 
-# You can configure the Airbrussh format using :format_options.
-# These are the defaults.
-# set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
+set :format, :pretty
 
-# Default value for :pty is false
-# set :pty, true
+# Set your post-deployment settings.
+# For example, you can restart your Nginx process
+# similar to the below example.
+# To learn more about how to work with Capistrano tasks
+# check out the official Capistrano documentation at:
+# http://capistranorb.com/
 
-# Default value for :linked_files is []
-# append :linked_files, "config/database.yml", "config/secrets.yml"
-
-# Default value for linked_dirs is []
-# append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
-
-# Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
-
-# Default value for keep_releases is 5
-# set :keep_releases, 5
+# namespace :deploy do
+#   desc 'Restart application'
+#   task :restart do
+#     on roles(:app), in: :sequence, wait: 5 do
+#       # Your restart mechanism here, for example:
+#       sudo "service nginx restart"
+#     end
+#   end
+# end
